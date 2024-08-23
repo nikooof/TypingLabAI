@@ -1,0 +1,1083 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
+
+:root {
+  --bgColor: #141221;
+  --textColorOne: #19a9a9;
+  --textColorTwo: #83829a;
+  --incorrectLettersColor: red;
+  --accentColor: red;
+  --highlightColor: yellow;
+  --themeBoxOneBgColor: #cb9ba6;
+  --themeBoxOneTextColor: #b4e9ff;
+  --themeBoxTwoBgColor: #0e0e0e;
+  --themeBoxTwoTextColor: #ff9900;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Fira Code", monospace;
+  font-weight: 700;
+  background-color: var(--bgColor);
+  user-select: none;
+}
+
+main {
+  margin: 2.5em 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainHeader {
+  display: flex;
+  color: var(--textColorOne);
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainHeaderImg {
+  width: 1em;
+  fill: var(--textColorOne);
+}
+
+#mainHeaderText1 {
+  display: flex;
+  font-weight: 700;
+  font-size: 2em;
+  align-items: center;
+  gap: 20px;
+}
+
+#mainHeaderText2 {
+  font-weight: 500;
+  font-size: 1.05em;
+}
+
+#mainArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5em 15em 0em;
+  margin-top: 2em;
+}
+
+#aboveTypingArea {
+  display: flex;
+  align-self: flex-start;
+}
+
+#time {
+  display: block;
+  font-size: 1.6em;
+  color: var(--textColorOne);
+  font-weight: 500;
+}
+
+#wordCount {
+  display: none;
+  font-size: 1.6em;
+  color: var(--textColorOne);
+  font-weight: 500;
+}
+
+#typingArea {
+  min-width: 500px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 35px;
+  color: var(--textColorTwo);
+  font-size: 1.5em;
+  position: relative;
+  margin-bottom: 2.5em;
+}
+
+#typingArea:focus {
+  outline: 0;
+}
+
+#typingArea:focus #words {
+  filter: blur(0);
+}
+
+#typingArea:focus #focus-msg {
+  display: none;
+}
+
+#typingArea:focus #caret {
+  display: block;
+}
+
+#focus-msg {
+  position: absolute;
+  color: var(--textColorOne);
+  font-size: 1.5em;
+  opacity: 1;
+  display: none;
+  top: 40%;
+  font-size: 25px;
+  text-align: center;
+}
+
+#words {
+  filter: blur(0.3em);
+  padding-top: 5px;
+}
+
+.word {
+  display: inline-block;
+  font-weight: 400;
+  margin: 0.5em 0.4em;
+}
+
+.letter.current {
+  position: relative;
+}
+
+.letter.correct {
+  color: var(--textColorOne);
+}
+
+.letter.incorrect {
+  color: var(--incorrectLettersColor);
+}
+
+.letter.incorrect.extra {
+  color: darkred;
+}
+
+#caret {
+  background: var(--textColorOne);
+  position: fixed;
+  width: 0.15em;
+  height: 1.35em;
+  transition: top 0.15s ease, left 0.2s ease;
+}
+
+#typingArea.over #words,
+#caret,
+#focus-msg {
+  display: none;
+}
+
+#results {
+  display: none;
+}
+
+#typingArea.over #results {
+  position: relative;
+  height: 190px;
+  display: flex;
+  background-color: var(--bgColor);
+  align-items: center;
+  justify-content: center;
+  gap: 75px;
+}
+
+#typingArea.over #basicStats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#typingArea.over #basicStats #wpm,
+#accuracy {
+  color: var(--textColorTwo);
+  font-size: 15px;
+}
+
+#typingArea.over #basicStats #wpmText,
+#accText {
+  color: var(--textColorOne);
+  font-size: 30px;
+}
+
+#typingArea.over #graphDiv {
+  width: 60%;
+  margin-top: 10px;
+  align-items: center;
+  justify-items: center;
+}
+
+#postPromptOptions {
+  display: none;
+  justify-content: center;
+  gap: 10em;
+}
+
+.newPromptIcon,
+.retryIcon,
+.shareIcon {
+  width: 1.5em;
+  fill: var(--textColorOne);
+}
+
+#newPromptButton,
+#retryButton,
+#shareButton {
+  border: none;
+  display: none;
+}
+
+#newPromptButton.over,
+#retryButton.over,
+#shareButton.over {
+  border: none;
+  display: block;
+  background-color: var(--bgColor);
+}
+
+#duringMidPromptOptions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#duringMidPromptOptions.over {
+  display: none;
+}
+
+#newPromptButtonMid {
+  display: block;
+  border: none;
+  background-color: var(--bgColor);
+}
+
+#newPromptButtonMid.over {
+  display: none;
+}
+
+#gameModes {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+#gameModeButtons {
+  display: flex;
+  gap: 50px;
+}
+
+.timeButtonIcon {
+  width: 1.725em;
+  fill: var(--textColorOne);
+}
+
+.wordsButtonIcon {
+  width: 1.75em;
+  fill: var(--textColorOne);
+}
+
+.robotIcon {
+  width: 2.35em;
+  fill: var(--textColorOne);
+}
+
+.randomTextButtonIcon {
+  width: 1.7em;
+  fill: var(--textColorOne);
+}
+
+.multiplayerButtonIcon {
+  width: 1.9em;
+  fill: var(--textColorOne);
+}
+
+.submitNameIcon {
+  width: 1.5em;
+  fill: var(--textColorOne);
+}
+
+.joinGameButtonIcon {
+  width: 1em;
+  fill: var(--textColorOne);
+}
+
+.copyIDIcon {
+  width: 1.35em;
+  fill: var(--textColorOne);
+}
+
+#timeSetting,
+#wordSetting,
+#theme {
+  opacity: 0;
+  display: none;
+  transition: opacity 0.5s linear;
+  align-items: center;
+}
+
+#timeSetting.active,
+#wordSetting.active,
+#theme.active {
+  opacity: 1;
+  align-items: center;
+  gap: 35px;
+}
+
+#fifteenSecondsButton,
+#thirtySecondsButton,
+#customTime {
+  border: none;
+  background-color: var(--bgColor);
+  cursor: pointer;
+  color: var(--textColorTwo);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+#customTime svg,
+#customWord svg {
+  vertical-align: -2px;
+}
+
+#fifteenSecondsButton:hover,
+#thirtySecondsButton:hover {
+  color: var(--highlightColor);
+}
+
+#customTime:hover .customSettingsButton,
+#customWord:hover .customSettingsButton {
+  fill: var(--highlightColor);
+}
+
+#fifteenSecondsButton.active,
+#thirtySecondsButton.active {
+  color: var(--textColorOne);
+}
+
+#customTime.active .customSettingsButton,
+#customWord.active .customSettingsButton {
+  fill: var(--textColorOne);
+}
+
+#twentyFiveWordsButton,
+#FiftyWordsButton,
+#customWord {
+  border: none;
+  background-color: var(--bgColor);
+  cursor: pointer;
+  color: var(--textColorTwo);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+#twentyFiveWordsButton:hover,
+#FiftyWordsButton:hover {
+  color: var(--highlightColor);
+}
+
+#twentyFiveWordsButton.active,
+#FiftyWordsButton.active {
+  color: var(--textColorOne);
+}
+
+#timeButton,
+#WordsButton,
+#AIOrNoAInButtton,
+#randomTextButton,
+#multiPlayerButton {
+  border: none;
+  background-color: var(--bgColor);
+  padding-bottom: 5px;
+  position: relative;
+  overflow: visible;
+}
+
+#newPromptButtonMid::before,
+#timeButton::before,
+#WordsButton::before,
+#AIOrNoAInButtton::before,
+#newPromptButton.over::before,
+#retryButton.over::before,
+#shareButton.over::before,
+#githubButton::before,
+#colorButton::before,
+#closeColorPopup::before,
+#resetColor::before,
+#randomTextButton::before,
+#sendToGPT::before,
+#multiPlayerButton::before,
+#submitName::before,
+#joinGameButton::before,
+#copyIDButton::before {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--textColorOne);
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+#closeColorPopup::before,
+#resetColor::before {
+  top: -22.5px;
+}
+
+#sendToGPT::before {
+  top: -25px;
+  left: 23px;
+}
+
+#submitName::before {
+  top: 2.5px;
+  left: 57.5px;
+}
+
+#joinGameButton::before {
+  top: 2.5px;
+  left: 52.5px;
+}
+
+#copyIDButton::before {
+  top: 0px;
+  left: 57.5px;
+}
+
+#timeButton:hover::before,
+#WordsButton:hover::before,
+#AIOrNoAInButtton:hover::before,
+#newPromptButtonMid:hover::before,
+#newPromptButton.over:hover::before,
+#retryButton.over:hover::before,
+#shareButton.over:hover::before,
+#githubButton:hover::before,
+#colorButton:hover::before,
+#closeColorPopup:hover::before,
+#resetColor:hover::before,
+#randomTextButton:hover::before,
+#sendToGPT:hover::before,
+#multiPlayerButton:hover::before,
+#submitName:hover::before,
+#joinGameButton:hover::before,
+#copyIDButton:hover::before {
+  opacity: 1;
+}
+
+#timeButton::before {
+  content: "Time";
+}
+
+#WordsButton::before {
+  content: "Words";
+}
+
+#randomTextButton::before {
+  content: "Normal";
+}
+
+#AIOrNoAInButtton::before {
+  content: "AI";
+}
+
+#newPromptButton.over::before,
+#newPromptButtonMid::before {
+  content: "New";
+}
+
+#retryButton.over::before {
+  content: "Retry";
+}
+
+#shareButton.over::before {
+  content: "Share";
+}
+
+#githubButton::before {
+  content: "GitHub";
+}
+
+#colorButton::before {
+  content: "Colors";
+}
+
+#closeColorPopup::before {
+  content: "Close";
+}
+
+#resetColor::before {
+  content: "Reset";
+}
+
+#sendToGPT::before {
+  content: "Submit";
+}
+
+#sendToGPT::after {
+  content: "";
+}
+
+#multiPlayerButton::before {
+  content: "Multiplayer";
+}
+
+#submitName::before {
+  content: "Create";
+}
+
+#joinGameButton::before {
+  content: "Join";
+}
+
+#copyIDButton::before {
+  content: "Copy";
+}
+
+#timeButton.active,
+#WordsButton.active,
+#AIOrNoAInButtton.active,
+#randomTextButton.active,
+#multiPlayerButton.active {
+  border: none;
+  background-color: var(--bgColor);
+  padding-bottom: 5px;
+  border-bottom: 2.5px;
+  border-bottom-color: var(--textColorOne);
+  border-bottom-style: solid;
+}
+
+.customSettingsButton {
+  width: 1em;
+  fill: var(--textColorTwo);
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bgColor);
+  margin: 14.5%;
+  border: 1px solid var(--textColorTwo);
+  border-radius: 10px;
+  width: 415px;
+  height: 215px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: var(--textColorOne);
+}
+
+.popup input {
+  width: 40%;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  border: 1px solid var(--textColorTwo);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  background-color: var(--bgColor);
+  gap: 40px;
+}
+
+.popup-buttons button {
+  background-color: var(--bgColor);
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  transition: transform 0.3s ease;
+}
+
+.popup-buttons button svg {
+  width: 25px;
+  height: 25px;
+  fill: var(--textColorOne);
+  transition: transform 0.3s ease;
+}
+
+button {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+button svg {
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+button:hover svg {
+  transform: scale(1.2);
+}
+
+#customWordInput,
+#customTimeInput {
+  color: var(--textColorOne);
+  font-weight: 500;
+  font-size: 16px;
+}
+
+#customWordInput::placeholder,
+#customTimeInput::placeholder {
+  color: var(--textColorTwo);
+}
+
+#customWordInput:focus,
+#customTimeInput:focus,
+#multiPlayerSettings input {
+  outline: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#theme {
+  display: flex;
+  margin-top: -10px;
+}
+
+#sendToGPT {
+  background-color: var(--bgColor);
+  border: none;
+  margin-left: -5px;
+  margin-top: 2.5px;
+}
+
+#sendToGPT svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--textColorOne);
+}
+
+#theme input {
+  width: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 8px 20px 8px 20px;
+  border: 1px solid var(--textColorTwo);
+  border-radius: 10px;
+  text-align: center;
+  color: var(--textColorOne);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+#theme input::placeholder {
+  color: var(--textColorTwo);
+}
+
+#theme input:focus {
+  outline: none;
+}
+
+#capsLock {
+  opacity: 0;
+  display: flex;
+  margin-top: 25px;
+  padding: 10px 30px;
+  border-radius: 10px;
+  align-items: center;
+  gap: 30px;
+  background-color: var(--textColorOne);
+  color: var(--bgColor);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.capsLockImg {
+  width: 1em;
+  fill: var(--bgColor);
+}
+
+#bottomNavBar {
+  margin-top: 20px;
+  display: flex;
+  background-color: var(--bgColor);
+  gap: 30px;
+}
+
+#bottomNavBar button {
+  border: none;
+  background-color: var(--bgColor);
+}
+
+#bottomNavBar button svg {
+  fill: var(--textColorOne);
+  transition: transform 0.3s ease;
+}
+
+.picker-content {
+  display: flex;
+  background-color: var(--bgColor);
+  margin: 12.75% auto;
+  border: 1px solid var(--textColorTwo);
+  border-radius: 10px;
+  width: 525px;
+  height: 215px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: var(--textColorOne);
+  gap: 25px;
+}
+
+#colorAreaChoice,
+#colorThemesArea {
+  background-color: var(--bgColor);
+  border: 2px solid var(--textColorTwo);
+  border-radius: 10px;
+  padding: 5px;
+}
+
+#colorAreaChoiceButton {
+  color: var(--textColorOne);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#closeColorPopup svg {
+  width: 27.5px;
+  height: 27.5px;
+  transition: transform 0.3s ease;
+}
+
+#resetColor svg {
+  width: 22.5px;
+  height: 22.5px;
+  fill: var(--textColorOne);
+  transition: transform 0.3s ease;
+}
+
+.colorButtonIcon {
+  width: 22px;
+  height: 22px;
+}
+
+.githubIcon {
+  width: 25px;
+  height: 25px;
+}
+
+#colorPickerButon {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#colorPickerButtonsBottom {
+  display: flex;
+  gap: 30px;
+}
+
+.switch {
+  font-size: 12px;
+  position: relative;
+  display: inline-block;
+  width: 4em;
+  height: 2.25em;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  size: 122px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--textColorTwo);
+  transition: 0.2s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 20px;
+  left: 0.27em;
+  bottom: 5%;
+  background-color: var(--bgColor);
+  border: 2px solid var(--textColorTwo);
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: var(--textColorOne);
+  border: 2px solid var(--textColorTwo);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--textColorOne);
+}
+
+input:checked + .slider:before {
+  transform: translateX(1.4em);
+  background-color: var(--bgColor);
+}
+
+.alertMessage {
+  display: flex;
+  font-size: 18px;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 400px;
+  height: 50px;
+  margin: 10%;
+  border: 2px solid var(--textColorTwo);
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: var(--textColorOne);
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.alertMessageIcon {
+  align-self: baseline;
+  padding-top: 5.5px;
+  width: 30px;
+  height: 25px;
+  fill: var(--textColorOne);
+}
+
+#colorThemesArea {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 14px 14px 15px;
+  gap: 20px;
+}
+
+.colorTheme {
+  display: flex;
+  gap: 3px;
+}
+
+.colorThemeBox {
+  width: 50%;
+  height: 25px;
+  border: 1px var(--textColorTwo) solid;
+}
+
+#colorTheme1Box1 {
+  background-color: var(--themeBoxOneBgColor);
+}
+#colorTheme1Box2 {
+  background-color: var(--themeBoxOneTextColor);
+}
+
+#colorTheme2Box1 {
+  background-color: var(--themeBoxTwoBgColor);
+}
+#colorTheme2Box2 {
+  background-color: var(--themeBoxTwoTextColor);
+}
+
+#setColor1,
+#setColor2 {
+  width: 55px;
+  height: 25px;
+}
+
+#saveColor1,
+#saveColor2 {
+  width: 51px;
+  height: 25px;
+}
+
+#loading {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-top: 3px solid var(--textColorOne);
+  border-radius: 100px;
+  animation: spin 0.5s infinite linear;
+  opacity: 0;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#loadingBar {
+  margin-top: 15px;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--textColorOne) 50%, transparent 50%);
+  background-size: 200% 100%;
+  animation: border-dance 1.5s infinite linear;
+  pointer-events: none;
+  opacity: 0;
+}
+
+@keyframes border-dance {
+  0% {
+    background-position: 200% 0px;
+  }
+  100% {
+    background-position: 0px 0px;
+  }
+}
+
+.alertMessage2 {
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  padding-left: 15px;
+  gap: 15px;
+  width: 480px;
+  height: 55px;
+  border: 2px solid var(--textColorTwo);
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: var(--textColorOne);
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.alertMessageIcon2 {
+  width: 40px;
+  height: 25px;
+  fill: var(--textColorOne);
+}
+
+#multiPlayerSettings {
+  display: none;
+  opacity: 0;
+}
+
+#multiPlayerSettings.active {
+  height: auto;
+  width: 350px;
+  padding-top: 5px;
+  opacity: 1;
+}
+
+#multiPlayerSettings input {
+  width: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 8px 20px 8px 20px;
+  border: 1px solid var(--textColorTwo);
+  border-radius: 10px;
+  text-align: center;
+  color: var(--textColorOne);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+#multiplayerButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+#multiplayerButtons button {
+  height: 35px;
+  width: 85px;
+  background-color: var(--bgColor);
+  color: var(--textColorOne);
+  border-radius: 12.5px;
+  border: 2px var(--textColorOne) solid;
+  transition: font-size 0.5s ease;
+  font-size: 15px;
+}
+
+#multiplayerButtons button:hover {
+  font-size: 16.5px;
+}
+
+#createGameOptions {
+  display: none;
+  width: auto;
+  height: auto;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+#joinGameOptions {
+  display: none;
+  width: auto;
+  height: auto;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+#createGameOptions button,
+#joinGameButton {
+  height: 30px;
+  width: 30px;
+  background-color: var(--bgColor);
+  border: none;
+  padding-top: 5px;
+}
+
+#copyIDButton {
+  height: 30px;
+  width: 30px;
+  background-color: var(--bgColor);
+  border: none;
+  padding-top: 0px;
+}
+
+#copyGameID {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--textColorOne);
+  gap: 25px;
+  font-size: 15x;
+}
+
+#multiPlayerResults {
+  display: none;
+}
+
+#copyGameIDText {
+  border-bottom: 2px solid var(--textColorOne);
+  padding: 5px 5px;
+}
